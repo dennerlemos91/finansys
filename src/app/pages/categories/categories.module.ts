@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
+import {NgBusyModule} from 'ng-busy';
+
 import { CategoriesRoutingModule } from './categories-routing.module';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryFormComponent } from './category-form/category-form.component';
@@ -12,7 +15,8 @@ import { CategoryFormComponent } from './category-form/category-form.component';
   ],
   imports: [
     CommonModule,
-    CategoriesRoutingModule
+    CategoriesRoutingModule,
+    NgBusyModule
   ]
 })
 export class CategoriesModule { }
