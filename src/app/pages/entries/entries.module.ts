@@ -4,15 +4,19 @@ import { CommonModule } from '@angular/common';
 import { EntriesRoutingModule } from './entries-routing.module';
 import { EntryListComponent } from './entry-list/entry-list.component';
 import { NgBusyModule } from 'ng-busy';
+import { EntryFormComponent } from './entry-form/entry-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    EntryListComponent
+    EntryListComponent,
+    EntryFormComponent
   ],
   imports: [
     CommonModule,
     EntriesRoutingModule,
-    NgBusyModule
+    NgBusyModule,
+    ReactiveFormsModule
   ]
 })
 export class EntriesModule { }
