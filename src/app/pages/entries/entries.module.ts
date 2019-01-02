@@ -7,6 +7,9 @@ import { NgBusyModule } from 'ng-busy';
 import { EntryFormComponent } from './entry-form/entry-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { IMaskModule } from 'angular-imask';
+import { CalendarModule } from 'primeng/calendar';
+
 @NgModule({
   declarations: [
     EntryListComponent,
@@ -16,7 +19,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     EntriesRoutingModule,
     NgBusyModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    IMaskModule,
+    CalendarModule
   ]
 })
 export class EntriesModule { }
