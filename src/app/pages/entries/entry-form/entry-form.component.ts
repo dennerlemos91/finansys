@@ -29,9 +29,23 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     mask: Number,
     scale: 2,
     thousandsSeparator: '',
-    padFractionlZeros: true,
-    nomalizeZeros: true,
+    padFractionalZeros: true,
+    normalizeZeros: true,
     radix: ','
+  };
+
+  ptBR = {
+    firstDayOfWeek: 0,
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+    dayNamesMin: ['Do', 'Se', 'Te', 'Qu', 'Qu', 'Se', 'Sa'],
+    monthNames: [
+      'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
+      'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    today: 'Hoje',
+    clear: 'Limpar'
   };
 
   constructor(
@@ -77,11 +91,11 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
       id: [null],
       name: [null, [Validators.required, Validators.minLength(2)]],
       description: [null],
-      type: [null , [Validators.required]],
+      type: ['expense' , [Validators.required]],
       amount: [null, [Validators.required]],
       date: [null, [Validators.required]],
-      paid: [null, [Validators.required]],
-      categoriId: [null, [Validators.required]],
+      paid: [true, [Validators.required]],
+      categoryId: [null, [Validators.required]],
     });
   }
 
