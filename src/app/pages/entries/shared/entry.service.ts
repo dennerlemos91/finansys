@@ -1,5 +1,6 @@
-import { flatMap, map, catchError } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
+
+import { flatMap } from 'rxjs/operators';
 
 import { BaseResourceService } from 'src/app/shared/services/base-resouce.service';
 import { CategoryService } from './../../categories/shared/category.service';
