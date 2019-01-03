@@ -30,8 +30,7 @@
         <div class="form-group col-md-2">
           <label for="type">Tipo</label>
           <select name="type" id="type" class="form-control" formControlName="type">
-            <option value="expense">Despesa</option>
-            <option value="revenue">Receita</option>
+              <option *ngFor="let option of typeOptions" [value]="option.value">{{ option.text }}</option>
           </select>
           <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">
             <div *ngIf="entryForm.get('type').errors['required']">Campo Obrigatório</div>
