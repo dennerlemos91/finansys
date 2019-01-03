@@ -1,3 +1,4 @@
+import { CategoryService } from './../../categories/shared/category.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -14,41 +15,52 @@ export class EntryService {
   private apiPath = 'api/entries';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private categoryService: CategoryService
   ) {  }
 
   getAll():  Observable<Entry[]> {
     return this.http.get(this.apiPath).pipe(
-      catchError(this.handlerErro),
-      map(this.jsonDataToEntries)
+      map(this.jsonDataToEntries),
+      catchError(this.handlerErro)
     );
   }
 
   getById(id: number): Observable<Entry> {
     return this.http.get(`${this.apiPath}/${id}`).pipe(
-      catchError(this.handlerErro),
-      map(this.jsonDataToEntry)
+      map(this.jsonDataToEntry),
+      catchError(this.handlerErro)
     );
   }
 
   create(entry: Entry): Observable<Entry> {
-    return this.http.post(this.apiPath, entry).pipe(
-      catchError(this.handlerErro),
-      map(this.jsonDataToEntry)
+    return this.categoryService.getById(entry.categoryId).pipe(
+      flatMap(category => {
+        entry.category = category;
+        return this.http.post(this.apiPath, entry).pipe(
+          map(this.jsonDataToEntry),
+          catchError(this.handlerErro)
+        );
+      })
     );
   }
 
   update(entry: Entry): Observable<Entry> {
-    return this.http.put(this.apiPath, entry).pipe(
-      catchError(this.handlerErro),
-      map(() => entry)
+    return this.categoryService.getById(entry.categoryId).pipe(
+      flatMap(category => {
+        entry.category = category;
+        return this.http.put(this.apiPath, entry).pipe(
+          map(() => entry),
+          catchError(this.handlerErro)
+        );
+      })
     );
   }
 
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiPath}/${id}`).pipe(
-      catchError(this.handlerErro),
-      map(() => null)
+      map(() => null),
+      catchError(this.handlerErro)
     );
   }
 

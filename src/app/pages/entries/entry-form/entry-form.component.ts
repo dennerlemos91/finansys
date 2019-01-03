@@ -9,6 +9,8 @@ import { switchMap } from 'rxjs/operators';
 
 import toastr from 'toastr';
 import { Subscription } from 'rxjs';
+import { Category } from '../../categories/shared/category.model';
+import { CategoryService } from '../../categories/shared/category.service';
 
 @Component({
   selector: 'app-entry-form',
@@ -16,6 +18,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./entry-form.component.scss']
 })
 export class EntryFormComponent implements OnInit, AfterContentChecked {
+
+  categories: Array<Category>;
 
   currentAction: string;
   entryForm: FormGroup;
@@ -50,12 +54,14 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
 
   constructor(
     private entryService: EntryService,
+    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.loadCategories();
     this.setCurrentAction();
     this.buildEntryForm();
     this.loadEntry();
@@ -110,6 +116,12 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
         alert('Ocorreu um error no servidor tente mais tarde');
       });
     }
+  }
+
+  private loadCategories() {
+    this.categoryService.getAll().subscribe(
+      categories => this.categories = categories
+    );
   }
 
   private setPageTitle() {
