@@ -16,7 +16,6 @@ import { CalendarModule } from 'primeng/calendar';
   imports: [
     SharedModule,
     EntriesRoutingModule,
-
     IMaskModule,
     CalendarModule
   ]
