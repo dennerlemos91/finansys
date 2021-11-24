@@ -27,28 +27,35 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
  for (DadoVariavelDTO dadoVariavel : variaveisSemInvetimentos) {
-            final VariavelT3 campo = toEnum(dadoVariavel.getNomeCampo().toUpperCase());
             final String valorCampo = String.valueOf(dadoVariavel.getConteudoCampo());
-            switch (campo) {
-                case CNPJ:
-                    contratacaoBuilder.cnpjCliente(valorCampo);
-                    break;
-                case NCONTRITAU:
-                    contratacaoBuilder.numeroContrato(valorCampo);
-                    break;
-                case AGE_CONTRATUAL:
-                    contratacaoBuilder.agenciaContratual(valorCampo);
-                    break;
-                case CTA_CONTRATUAL:
-                    contratacaoBuilder.contaContratual(valorCampo);
-                    break;
-                case VALOR_LIMITE:
-                    contratacaoBuilder.valorLimite(valorCampo);
-                    break;
-                case PERC_VLR_LIMITE:
-                    contratacaoBuilder.percentualValorLimite(valorCampo);
-                    break;
-                case VTARICNTCREAL:
-                    contratacaoBuilder.valorTarifa(valorCampo);
-                    break;
-                case VTARICNTCPCT:
+            Optional.ofNullable(VariavelT3
+                    .toEnum(dadoVariavel.getNomeCampo().toUpperCase()))
+                    .ifPresent(variavel -> variavel.atribuirValor(valorCampo, contratacaoBuilder));
+        }
+        
+@Getter
+@AllArgsConstructor
+public enum VariavelT3 {
+    CNPJ("CNPJ DO CLIENTE") {
+        @Override
+        public void atribuirValor(String valor,  ComprovanteContratacaoDTO.ComprovanteContratacaoDTOBuilder contratacaoBuilder) {
+            contratacaoBuilder.cnpjCliente(valor);
+        }
+    };
+    
+    private String descricao;
+    
+    public static VariavelT3 toEnum(String campo) {
+        if (campo == null) {
+            return null;
+        }
+        for (VariavelT3 x : VariavelT3.values()) {
+            if (campo.equals(x.name())) {
+                return x;
+            }
+        }
+        return null;
+    }
+        
+    public abstract void atribuirValor(String valor,  ComprovanteContratacaoDTO.ComprovanteContratacaoDTOBuilder contratacaoBuilder);    
+}
