@@ -25,3 +25,30 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+ for (DadoVariavelDTO dadoVariavel : variaveisSemInvetimentos) {
+            final VariavelT3 campo = toEnum(dadoVariavel.getNomeCampo().toUpperCase());
+            final String valorCampo = String.valueOf(dadoVariavel.getConteudoCampo());
+            switch (campo) {
+                case CNPJ:
+                    contratacaoBuilder.cnpjCliente(valorCampo);
+                    break;
+                case NCONTRITAU:
+                    contratacaoBuilder.numeroContrato(valorCampo);
+                    break;
+                case AGE_CONTRATUAL:
+                    contratacaoBuilder.agenciaContratual(valorCampo);
+                    break;
+                case CTA_CONTRATUAL:
+                    contratacaoBuilder.contaContratual(valorCampo);
+                    break;
+                case VALOR_LIMITE:
+                    contratacaoBuilder.valorLimite(valorCampo);
+                    break;
+                case PERC_VLR_LIMITE:
+                    contratacaoBuilder.percentualValorLimite(valorCampo);
+                    break;
+                case VTARICNTCREAL:
+                    contratacaoBuilder.valorTarifa(valorCampo);
+                    break;
+                case VTARICNTCPCT:
